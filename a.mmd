@@ -1,0 +1,34 @@
+flowchart TB
+
+    User["fa:fa-user User"]
+    kubectl["fa:fa-terminal kubectl"]
+ 
+    subgraph Cluster
+        direction TB
+        subgraph ControlPlane["Control Plane"]
+            API[API Server] c3@==> Scheduler
+            API ===|edit| etcd((etcd))
+            ControllerManager["Controller Manager"]
+        end
+        subgraph WorkerNodes["Worker Nodes"]
+            kubelet["kubelet"]
+            subgraph PodsContainer["Pods"]
+              direction LR
+              Pod@{ shape: st-rect, label: "Pod = Container"}
+            end
+            kubelet ===>|manage| PodsContainer
+        end
+    end
+
+    User c1@===> kubectl c2@==> API
+    API c4@===> kubelet
+
+
+
+      classDef animate stroke-dasharray: 9,5,stroke-dashoffset: 900,animation: dash 50s linear infinite;
+    class c1,c2,c3,c4 animate
+
+    class PodsContainer structurevarint
+      classDef structurevarint stroke-dasharray: 9,5,stroke-dashoffset: 900,animation: dash 50s linear infinite, corners: round;
+
+click User "." "jfdhfkljh lj lkfjslafkjsalfkjs"
