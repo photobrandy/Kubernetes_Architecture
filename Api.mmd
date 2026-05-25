@@ -1,0 +1,66 @@
+graph TD
+    A[Kubernetes API]:::root --> B[core/v1]:::core
+    A --> C[apps/v1]:::apps
+    A --> D[batch/v1]:::batch
+    A --> E[networking.k8s.io/v1]:::network
+    A --> F[rbac.authorization.k8s.io/v1]:::rbac
+    A --> G[storage.k8s.io/v1]:::storage
+    A --> H[apiextensions.k8s.io/v1]:::crd
+    A --> I[scheduling.k8s.io/v1]:::sched
+    A --> J[coordination.k8s.io/v1]:::coord
+
+    %% core/v1
+    B --> B1[Pod]
+    B --> B2[Service]
+    B --> B3[ConfigMap]
+    B --> B4[Secret]
+    B --> B5[PersistentVolume]
+    B --> B6[PersistentVolumeClaim]
+    B --> B7[Namespace]
+    B --> B8[Node]
+
+    %% apps/v1
+    C --> C1[Deployment]
+    C --> C2[StatefulSet]
+    C --> C3[DaemonSet]
+    C --> C4[ReplicaSet]
+
+    %% batch/v1
+    D --> D1[Job]
+    D --> D2[CronJob]
+
+    %% networking.k8s.io/v1
+    E --> E1[Ingress]
+    E --> E2[NetworkPolicy]
+
+    %% rbac.authorization.k8s.io/v1
+    F --> F1[Role]
+    F --> F2[ClusterRole]
+    F --> F3[RoleBinding]
+    F --> F4[ClusterRoleBinding]
+
+    %% storage.k8s.io/v1
+    G --> G1[StorageClass]
+    G --> G2[CSIDriver]
+    G --> G3[VolumeAttachment]
+
+    %% apiextensions.k8s.io/v1
+    H --> H1[CustomResourceDefinition]
+
+    %% scheduling.k8s.io/v1
+    I --> I1[PriorityClass]
+
+    %% coordination.k8s.io/v1
+    J --> J1[Lease]
+
+    %% Styles
+    classDef root fill:#1E88E5,color:#fff,font-weight:bold;
+    classDef core fill:#43A047,color:#fff;
+    classDef apps fill:#FB8C00,color:#fff;
+    classDef batch fill:#E53935,color:#fff;
+    classDef network fill:#8E24AA,color:#fff;
+    classDef rbac fill:#00ACC1,color:#fff;
+    classDef storage fill:#FDD835,color:#000;
+    classDef crd fill:#26C6DA,color:#000;
+    classDef sched fill:#7CB342,color:#fff;
+    classDef coord fill:#5C6BC0,color:#fff;
