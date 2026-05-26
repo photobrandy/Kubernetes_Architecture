@@ -1,22 +1,3 @@
-# Kubernetes Diagram
-
-This repository contains a rendered Mermaid diagram that explains, at a glance, how a user interacts with a Kubernetes cluster.
-
-## Quick view
-
-Open the repository homepage on GitHub to see the diagram rendered automatically in the README:
-
-https://github.com/photobrandy/GitPlayground
-
-## What this diagram shows
-
-- How a user interacts with a cluster through `kubectl`
-- The role of the Kubernetes API Server
-- How the Scheduler and Controller Manager fit into the control plane
-- How worker nodes, `kubelet`, and pods connect to the flow
-
-## Mermaid diagram
-
 ```mermaid
 flowchart TB
 
@@ -28,25 +9,34 @@ flowchart TB
         subgraph ControlPlane["Control Plane"]
             API[API Server] c3@==> Scheduler
             API ===|edit| etcd((etcd))
-            ControllerManager["Controller Manager"]
+            API c4@==> ControllerManager["Controller Manager"]
         end
-        subgraph WorkerNodes["Worker Nodes"]
+        subgraph WorkerNode["Worker Node"]
             kubelet["kubelet"]
             subgraph PodsContainer["Pods"]
               direction LR
-              Pod@{ shape: st-rect, label: "Pod = Container"}
+              Pod@{ shape: st-rect, label: "Pod"}
             end
             kubelet ===>|manage| PodsContainer
+        end
+        subgraph WorkerNodeN["Worker Node"]
+            kubeletN["kubelet"]
+            subgraph PodsContainerN["Pods"]
+              direction LR
+              PodN@{ shape: st-rect, label: "Pod"}
+            end
+            kubeletN ===>|manage| PodsContainerN
         end
     end
 
     User c1@===> kubectl c2@==> API
-    API c4@===> kubelet
+    API c5@===> kubelet
+    API c5N@===> kubeletN
 
     classDef animate stroke-dasharray: 9,5,stroke-dashoffset: 900,animation: dash 50s linear infinite;
-    class c1,c2,c3,c4 animate
+    class c1,c2,c3,c4,c5,c5N animate
 
-    class PodsContainer structurevarint
+    class PodsContainer,PodsContainerN structurevarint
     classDef structurevarint stroke-dasharray: 9,5,stroke-dashoffset: 900,animation: dash 50s linear infinite, corners: round;
 
     click kubectl / "kubectl is the main interface for interacting with Kubernetes. It sends commands to the cluster via the Kubernetes API. You can use it to:\n<ul>\n<li>Deploy applications</li>\n<li>View resources (like pods)</li>\n<li>Update or delete things in the cluster</li>\n</ul>"
@@ -65,11 +55,3 @@ flowchart TB
 
     click Pod / "A Pod is the smallest deployable unit in Kubernetes. It represents a single instance of a running process in the cluster. A Pod can contain one or more containers, which share the same network and storage."
 ```
-
-## Share this project
-
-If you want to share this publicly, send the repository link:
-
-https://github.com/photobrandy/GitPlayground
-
-GitHub renders the README automatically, so people will see the diagram right away.
